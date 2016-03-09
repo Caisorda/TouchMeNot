@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SnatchedSettingsActivity"></activity>
+        <activity android:name=".SnatchedSettingsActivity" />
+        <activity android:name=".ChangeMessageActivity"></activity>
     </application>
 
 </manifest>
