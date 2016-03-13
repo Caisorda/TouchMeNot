@@ -9,4 +9,119 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.laptop.touchmenot.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlSimCard"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sim Detection Mode"
+            android:id="@+id/tvSimCardDetection"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Detects if sim card is changed"
+            android:id="@+id/tvSimDescription"
+            android:layout_below="@+id/tvSimCardDetection"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlCharger"
+        android:layout_below="@+id/rlSimCard"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Charger Detection Mode"
+            android:id="@+id/tvChargerDetection"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Detects if charger is disconnected"
+            android:id="@+id/tvChargerDescription"
+            android:layout_below="@+id/tvChargerDetection"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlMotion"
+        android:layout_below="@+id/rlCharger"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Motion Detection Mode"
+            android:id="@+id/tvMotionDetection"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Detects if charger is disconnected"
+            android:id="@+id/tvMotionDescription"
+            android:layout_below="@+id/tvMotionDetection"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlSettings"
+        android:layout_below="@+id/rlMotion"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Settings"
+            android:id="@+id/tvSettings"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Change Settings"
+            android:id="@+id/tvSettingsDescription"
+            android:layout_below="@+id/tvSettings"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
 </RelativeLayout>

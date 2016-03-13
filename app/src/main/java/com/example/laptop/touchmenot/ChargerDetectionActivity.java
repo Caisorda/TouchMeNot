@@ -1,0 +1,15 @@
+package com.example.laptop.touchmenot;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class ChargerDetectionActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_charger_detection);
+
+
+    }
+}

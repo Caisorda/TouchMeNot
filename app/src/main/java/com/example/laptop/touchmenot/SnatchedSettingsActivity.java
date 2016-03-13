@@ -15,7 +15,7 @@ import android.widget.ToggleButton;
 
 public class SnatchedSettingsActivity extends AppCompatActivity {
 
-    private RelativeLayout rlContent, rlInterval, rlPatternSetting;
+    private RelativeLayout rlContent, rlInterval, rlPatternSetting, rlPassword;
     private TextView tvInterval;
     private IntervalDBOpenHelper idbHelper;
     private ToggleButton tglbtnDetectMode;
@@ -100,6 +100,16 @@ public class SnatchedSettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent();
                 i.setClass(getBaseContext(), ChangePatternActivity.class);
+                startActivity(i);
+            }
+        });
+
+        rlPassword = (RelativeLayout) findViewById(R.id.rlPassword);
+        rlPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                i.setClass(getBaseContext(), ChangePasswordActivity.class);
                 startActivity(i);
             }
         });
