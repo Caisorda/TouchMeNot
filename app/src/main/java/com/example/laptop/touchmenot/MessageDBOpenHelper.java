@@ -20,7 +20,7 @@ public class MessageDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE " + Message.TABLE_NAME + " ("
+        String sql = "CREATE TABLE " + Message.CONTENT_TABLE_NAME + " ("
                 + Message.COLUMN_ID + " TEXT, "
                 + Message.COLUMN_BODY + " TEXT) ";
         db.execSQL(sql);
@@ -29,7 +29,7 @@ public class MessageDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS " + Message.TABLE_NAME;
+        String sql = "DROP TABLE IF EXISTS " + Message.CONTENT_TABLE_NAME;
         db.execSQL(sql);
         onCreate(db);
     }
@@ -40,12 +40,12 @@ public class MessageDBOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(Message.COLUMN_BODY, message);
 
-        return db.update(Message.TABLE_NAME, cv, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"});
+        return db.update(Message.CONTENT_TABLE_NAME, cv, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"});
     }
 
     public String getMessage(){
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(Message.TABLE_NAME, null, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"}, null, null, null);
+        Cursor c = db.query(Message.CONTENT_TABLE_NAME, null, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"}, null, null, null);
 
         if(c.moveToFirst()){
             return c.getString(c.getColumnIndex(Message.COLUMN_BODY));
@@ -61,10 +61,10 @@ public class MessageDBOpenHelper extends SQLiteOpenHelper {
         cv.put(Message.COLUMN_ID, "defmes");
         cv.put(Message.COLUMN_BODY, "My Phone has been snatched! Current location is:");
 
-        return dbWrite.insert(Message.TABLE_NAME, null, cv);
+        return dbWrite.insert(Message.CONTENT_TABLE_NAME, null, cv);
 
 //        SQLiteDatabase db = getWritableDatabase();
-//        return db.delete(Message.TABLE_NAME, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"});
+//        return db.delete(Message.CONTENT_TABLE_NAME, " " + Message.COLUMN_ID + "= ?", new String[]{"" + "defmes"});
     }
 
 }

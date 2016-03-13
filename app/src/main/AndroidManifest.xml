@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SnatchedSettingsActivity" />
-        <activity android:name=".ChangeMessageActivity"></activity>
+        <activity android:name=".ChangeMessageActivity" />
+        <activity android:name=".ChangePatternActivity"></activity>
     </application>
 
 </manifest>

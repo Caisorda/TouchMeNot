@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.laptop.touchmenot.ChangePatternActivity"
+    android:background="#c7d3d3">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPatternCancel"
+        android:text="Cancel"
+        android:background="#516161"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnPatternAction"
+        android:background="#516161"
+        android:layout_marginBottom="14dp"
+        android:layout_above="@+id/btnPatternCancel"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imgInstruction"
+        android:src="@drawable/buttonpattern"
+        android:layout_above="@+id/btnPatternAction"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Text"
+        android:id="@+id/tvInstruction"
+        android:layout_alignBottom="@+id/imgInstruction"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
