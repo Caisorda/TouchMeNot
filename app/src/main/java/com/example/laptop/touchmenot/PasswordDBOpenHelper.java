@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class PasswordDBOpenHelper extends SQLiteOpenHelper {
 
     public static final String SCHEMA = "password";
+    public static int index = 1;
 
     public PasswordDBOpenHelper(Context context){
         super(context, SCHEMA, null, 1);
@@ -36,13 +37,25 @@ public class PasswordDBOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public long insertPassword(Password p){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(Password.COLUMN_PASSWORD, p.getPassword());
+        cv.put(Password.COLUMN_CONFIRMPASSWORD, p.getConfirmpassword());
+        //cv.put(Password.COLUMN_ID, index);
+        long id = db.insert(Password.CONTENT_TABLE_NAME, null, cv);
+
+        return id;
+
+    }
+
     public int savePassword(Password pass){
         SQLiteDatabase db = getWritableDatabase();
-
+        //pass.setID(index);
         ContentValues cv = new ContentValues();
         cv.put(Password.COLUMN_PASSWORD, pass.getPassword());
         cv.put(Password.COLUMN_CONFIRMPASSWORD, pass.getConfirmpassword());
-
+        //cv.put(Password.COLUMN_ID, pass.getID());
         return db.update(Password.CONTENT_TABLE_NAME, cv, " " + Password.COLUMN_ID + "= ?", new String[]{"" + pass});
     }
 

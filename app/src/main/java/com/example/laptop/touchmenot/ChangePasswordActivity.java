@@ -1,6 +1,5 @@
 package com.example.laptop.touchmenot;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +15,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     PasswordDBOpenHelper pdbo;
     Password pass;
     public static boolean status = false;
+    public static boolean first = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,22 @@ public class ChangePasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword)){
+                if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && first == true){
+                    status = true;
+                    first = false;
+                    pass.setPassword(password);
+                    pass.setConfirmpassword(confirmPassword);
+                    pdbo.insertPassword(pass);
+                    //pdbo.savePassword(pass);
+                    Log.w("Password", password);
+                    Log.w("Confirm", confirmPassword);
+                    System.out.println(password);
+                    System.out.println(confirmPassword);
+                    finish();
+                    Toast.makeText(getApplicationContext(), "Password is now set",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && first == false){
                     status = true;
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);

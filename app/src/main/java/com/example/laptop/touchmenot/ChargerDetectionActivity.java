@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 public class ChargerDetectionActivity extends AppCompatActivity {
 
-
     int state;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +39,14 @@ public class ChargerDetectionActivity extends AppCompatActivity {
 
                 else if ((state == BatteryManager.BATTERY_PLUGGED_AC
                         || state == BatteryManager.BATTERY_PLUGGED_USB) && MainActivity.active == true) {
-                    Toast.makeText(getApplicationContext(), "Charging and now deactivating",
+
+                    Intent i = new Intent();
+                    i.setClass(getBaseContext(), CheckPasswordActivity.class);
+                    startActivity(i);
+                    /*Toast.makeText(getApplicationContext(), "Charging and now deactivating",
                             Toast.LENGTH_SHORT).show();
                     MainActivity.active = false;
+                    finish();*/
                     finish();
                 }
 
