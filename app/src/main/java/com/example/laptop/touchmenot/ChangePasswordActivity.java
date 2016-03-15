@@ -56,6 +56,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Fill necessary fields",
                             Toast.LENGTH_SHORT).show();
                 }
+                else if(password != confirmPassword){
+                    Toast.makeText(getApplicationContext(), "Passwords mismatch",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

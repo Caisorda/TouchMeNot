@@ -15,7 +15,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout rlCharger, rlMotion, rlSim, rlSettings;
-    boolean active = false;
+    public static boolean active = false;
+    int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,33 +40,10 @@ public class MainActivity extends AppCompatActivity {
         rlCharger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BroadcastReceiver receiver = new BroadcastReceiver() {
-                    public void onReceive(Context context, Intent intent) {
-                        int state = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-                        if ((state == BatteryManager.BATTERY_PLUGGED_AC
-                                || state == BatteryManager.BATTERY_PLUGGED_USB) && active == false) {
-                            Toast.makeText(getApplicationContext(), "Charging and now activating",
-                                    Toast.LENGTH_SHORT).show();
-                            active = true;
-                        }
-
-                        else if ((state == BatteryManager.BATTERY_PLUGGED_AC
-                                || state == BatteryManager.BATTERY_PLUGGED_USB) && active == true) {
-                            Toast.makeText(getApplicationContext(), "Charging and now deactivating",
-                                    Toast.LENGTH_SHORT).show();
-                            active = false;
-                        }
-
-                        else if (state == 0) {
-                            // not charging or on battery power
-                            Toast.makeText(getApplicationContext(), "Not charging.",
-                                    Toast.LENGTH_SHORT).show();
-                            active = false;
-                        }
-                    }
-                };
-                IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-                registerReceiver(receiver, filter);
+                Intent i = new Intent();
+                i.setClass(getBaseContext(), ChargerDetectionActivity.class);
+                i.putExtra("active", active);
+                startActivity(i);
             }
         });
 
