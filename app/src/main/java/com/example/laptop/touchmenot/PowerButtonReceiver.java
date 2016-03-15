@@ -1,8 +1,11 @@
 package com.example.laptop.touchmenot;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -20,13 +23,29 @@ public class PowerButtonReceiver extends BroadcastReceiver {
 //        System.out.println(intent.getExtras().get("Wow"));
 //        int volume = (Integer)intent.getExtras().get("android.media.EXTRA_VOLUME_STREAM_VALUE");
 //        System.out.println(volume);
+        pdbHelper = new PatternDBOpenHelper(context);
+        int order = pdbHelper.getButtonPosition()+1;
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
         {
-            pdbHelper = new PatternDBOpenHelper(context);
-            PatternKeys keyPressed = new PatternKeys();
-            keyPressed.setOrder(pdbHelper.getButtonPosition()+1);
-            keyPressed.setKey(PatternKeys.VALUE_POWER);
-            pdbHelper.insertKeyPressed(keyPressed);
+            if(order <= 6) {
+                PatternKeys keyPressed = new PatternKeys();
+                keyPressed.setOrder(order);
+                keyPressed.setKey(PatternKeys.VALUE_POWER);
+                pdbHelper.insertKeyPressed(keyPressed);
+            }else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Button Pattern Limit Exceeded");
+                TextView tvInstruct = new TextView(context);
+                tvInstruct.setText("Number of buttons pressed exceeded the limit of six(6) buttons. Please tap \"Save\" save the current pattern or press \"Cancel\" to discard changes and go back to the menu.");
+                builder.setView(tvInstruct);
+                builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
         }
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
         {

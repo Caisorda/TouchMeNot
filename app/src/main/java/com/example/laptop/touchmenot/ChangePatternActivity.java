@@ -50,7 +50,36 @@ public class ChangePatternActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if(isRecording){
+                    final View view = v;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                    builder.setTitle("Discard Changes");
+                    TextView tvInstruct = new TextView(v.getContext());
+                    tvInstruct.setText("Cancel button pattern recording and go back to settings menu?");
+                    builder.setView(tvInstruct);
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            unregisterReceiver(powerReceiver);
+                            PackageManager volumePM = view.getContext().getPackageManager();
+                            ComponentName volumeComponentName = new ComponentName(ChangePatternActivity.this, VolumeButtonReceiver.class);
+                            volumePM.setComponentEnabledSetting(volumeComponentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                                    PackageManager.DONT_KILL_APP);
+                            pdbHelper.clearPattern();
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+                }else{
+                    finish();
+                }
             }
         });
 
@@ -63,9 +92,8 @@ public class ChangePatternActivity extends AppCompatActivity {
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRecording = !isRecording;
-                if (!isRecording) {
-                    
+                if (isRecording) {
+                    if(pdbHelper.getButtonPosition() >= 3) {
                         btnAction.setText("Record");
                         tvInstruction.setText("Tap the Record button to start recording the Button Pattern");
 
@@ -74,28 +102,44 @@ public class ChangePatternActivity extends AppCompatActivity {
                         volumePM.setComponentEnabledSetting(volumeComponentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                                 PackageManager.DONT_KILL_APP);
 
-    //                    PackageManager powerPM = v.getContext().getPackageManager();
-    //                    ComponentName powerComponentName = new ComponentName(ChangePatternActivity.this, PowerButtonReceiver.class);
-    //                    powerPM.setComponentEnabledSetting(powerComponentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-    //                            PackageManager.DONT_KILL_APP);
+                        //                    PackageManager powerPM = v.getContext().getPackageManager();
+                        //                    ComponentName powerComponentName = new ComponentName(ChangePatternActivity.this, PowerButtonReceiver.class);
+                        //                    powerPM.setComponentEnabledSetting(powerComponentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        //                            PackageManager.DONT_KILL_APP);
                         unregisterReceiver(powerReceiver);
 
                         String pattern = "";
-                        for(PatternKeys pk : pdbHelper.getPattern()){
+                        for (PatternKeys pk : pdbHelper.getPattern()) {
                             pattern = pattern + pk.getKey() + " " + pk.getOrder() + ", ";
                         }
 
                         Toast.makeText(getApplicationContext(), pattern,
                                 Toast.LENGTH_SHORT).show();
                         System.out.println(pattern);
+                        isRecording = !isRecording;
                         finish();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        builder.setTitle("Not enough buttons");
+                        TextView tvInstruct = new TextView(v.getContext());
+                        tvInstruct.setText("Less than three (3) buttons were pressed. Please press more buttons.");
+                        builder.setView(tvInstruct);
+                        builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+                    }
                 } else {
+                    isRecording = !isRecording;
                     btnAction.setText("Save");
                     tvInstruction.setText("Press each button in the order you desire.");
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setTitle("Recording Button Pattern");
                     TextView tvInstruct = new TextView(v.getContext());
-                    tvInstruct.setText("Press the Power, Volume Up, and Volume Button in the order you desire. Button pattern should have three(3) to six(6) button presses. \n\n\n  Note: If you press the power button, pressing it again to turn on the screen will not be recorded.");
+                    tvInstruct.setText("Press the Power, Volume Up, and Volume Down buttons in the order you desire. Button pattern should have three(3) to six(6) button presses. \n\n\nNote: If you press the power button, pressing it again to turn on the screen will not be recorded.");
                     builder.setView(tvInstruct);
                     builder.setNeutralButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
