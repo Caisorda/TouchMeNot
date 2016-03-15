@@ -13,21 +13,30 @@ public class ChargerDetectionActivity extends AppCompatActivity {
 
 
     int state;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charger_detection);
-
         BroadcastReceiver receiver = new BroadcastReceiver() {
             public void onReceive(Context context, Intent intent) {
                 state = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                 //boolean active = getIntent().getExtras().getBoolean("active");
                 if ((state == BatteryManager.BATTERY_PLUGGED_AC
                         || state == BatteryManager.BATTERY_PLUGGED_USB) && MainActivity.active == false) {
-                    Toast.makeText(getApplicationContext(), "Charging and now activating",
-                            Toast.LENGTH_SHORT).show();
-                    MainActivity.active = true;
-                    finish();
+                    if(ChangePasswordActivity.status == true){
+                        Toast.makeText(getApplicationContext(), "Charging and now activating",
+                                Toast.LENGTH_SHORT).show();
+                        MainActivity.active = true;
+                        finish();
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "Set password first",
+                                Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
                 }
 
                 else if ((state == BatteryManager.BATTERY_PLUGGED_AC
@@ -51,4 +60,6 @@ public class ChargerDetectionActivity extends AppCompatActivity {
         registerReceiver(receiver, filter);
 
     }
+
+
 }

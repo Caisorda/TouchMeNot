@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     RelativeLayout rlCharger, rlMotion, rlSim, rlSettings;
     public static boolean active = false;
-    int state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         rlCharger = (RelativeLayout) findViewById(R.id.rlCharger);
         rlMotion = (RelativeLayout) findViewById(R.id.rlMotion);
         rlSim = (RelativeLayout) findViewById(R.id.rlSimCard);
-
         rlSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent();
                 i.setClass(getBaseContext(), ChargerDetectionActivity.class);
-                i.putExtra("active", active);
                 startActivity(i);
             }
         });

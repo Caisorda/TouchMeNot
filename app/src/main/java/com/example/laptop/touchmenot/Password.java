@@ -11,7 +11,7 @@ public class Password {
 
     public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_CONFIRMPASSWORD = "confirmpassword";
-    public static final String CONTENT_TABLE_NAME = "password";
+    public static final String CONTENT_TABLE_NAME = "password2";
     public static final String COLUMN_ID = "_id";
 
     public Password(){

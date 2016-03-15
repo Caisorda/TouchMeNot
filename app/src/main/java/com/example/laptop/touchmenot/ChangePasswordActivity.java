@@ -15,7 +15,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     EditText etPassword, etConfirmPassword;
     PasswordDBOpenHelper pdbo;
     Password pass;
-
+    public static boolean status = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,23 +24,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
         pdbo = new PasswordDBOpenHelper(getBaseContext());
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-//        final String password = etPassword.getText().toString();
-//        final String confirmPassword = etConfirmPassword.getText().toString();
-
         pass = new Password();
-//        pass.setPassword(password);
-//        pass.setConfirmpassword(confirmPassword);
-
-//        Log.w("Password", password);
-//        Log.w("Confirm", confirmPassword);
-
         btnOkay = (Button) findViewById(R.id.btnOkay);
         btnOkay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if(password !="" && confirmPassword !=""){
+                if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword)){
+                    status = true;
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);
                     pdbo.savePassword(pass);
@@ -52,11 +44,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password is now set",
                             Toast.LENGTH_SHORT).show();
                 }
-                else if(password =="" && confirmPassword ==""){
+                else if(password.equals("") || confirmPassword.equals("")){
                     Toast.makeText(getApplicationContext(), "Fill necessary fields",
                             Toast.LENGTH_SHORT).show();
                 }
-                else if(password != confirmPassword){
+                else if(!password.equals(confirmPassword)){
                     Toast.makeText(getApplicationContext(), "Passwords mismatch",
                             Toast.LENGTH_SHORT).show();
                 }

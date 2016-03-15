@@ -46,6 +46,14 @@ public class PasswordDBOpenHelper extends SQLiteOpenHelper {
         return db.update(Password.CONTENT_TABLE_NAME, cv, " " + Password.COLUMN_ID + "= ?", new String[]{"" + pass});
     }
 
+    public Cursor queryAllPassword(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(Password.CONTENT_TABLE_NAME, null, null, null, null, null, null);
+
+
+        return c;
+    }
+
     public Password getPassword(int id){
         Password pass = new Password();
         SQLiteDatabase db = getReadableDatabase();
@@ -62,6 +70,19 @@ public class PasswordDBOpenHelper extends SQLiteOpenHelper {
         }
 
         return pass;
+    }
+
+    public int getID(String password){
+        int id = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(Password.CONTENT_TABLE_NAME, null, " " + Password.COLUMN_PASSWORD + "=? ",
+                new String[]{String.valueOf(password)}, null, null, null);
+        if(c.moveToFirst()){
+            id = c.getInt(c.getColumnIndex(Password.COLUMN_ID));
+        }
+
+
+        return id;
     }
 
 }
