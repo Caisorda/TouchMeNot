@@ -20,6 +20,24 @@
         <activity android:name=".ChangePatternActivity" />
         <activity android:name=".ChargerDetectionActivity" />
         <activity android:name=".ChangePasswordActivity"></activity>
+
+        <receiver
+            android:name=".PowerButtonReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SCREEN_ON"/>
+                <action android:name="android.intent.action.ACTION_SCREEN_OFF"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".VolumeButtonReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.media.VOLUME_CHANGED_ACTION"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

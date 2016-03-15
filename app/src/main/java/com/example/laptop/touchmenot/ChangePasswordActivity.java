@@ -24,27 +24,33 @@ public class ChangePasswordActivity extends AppCompatActivity {
         pdbo = new PasswordDBOpenHelper(getBaseContext());
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-        final String password = etPassword.getText().toString();
-        final String confirmPassword = etConfirmPassword.getText().toString();
+//        final String password = etPassword.getText().toString();
+//        final String confirmPassword = etConfirmPassword.getText().toString();
 
         pass = new Password();
-        pass.setPassword(password);
-        pass.setConfirmpassword(confirmPassword);
+//        pass.setPassword(password);
+//        pass.setConfirmpassword(confirmPassword);
 
-        Log.w("Password", password);
-        Log.w("Confirm", confirmPassword);
+//        Log.w("Password", password);
+//        Log.w("Confirm", confirmPassword);
 
         btnOkay = (Button) findViewById(R.id.btnOkay);
         btnOkay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
                 if(password !="" && confirmPassword !=""){
+                    pass.setPassword(password);
+                    pass.setConfirmpassword(confirmPassword);
                     pdbo.savePassword(pass);
+                    Log.w("Password", password);
+                    Log.w("Confirm", confirmPassword);
+                    System.out.println(password);
+                    System.out.println(confirmPassword);
                     finish();
                     Toast.makeText(getApplicationContext(), "Password is now set",
                             Toast.LENGTH_SHORT).show();
-                    Log.w("Password", password);
-                    Log.w("Confirm", confirmPassword);
                 }
                 else if(password =="" && confirmPassword ==""){
                     Toast.makeText(getApplicationContext(), "Fill necessary fields",
