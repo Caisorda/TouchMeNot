@@ -24,16 +24,17 @@ public class ChangePasswordActivity extends AppCompatActivity {
         pdbo = new PasswordDBOpenHelper(getBaseContext());
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-        pass = new Password();
+        pass = pdbo.getPassword(1);
         btnOkay = (Button) findViewById(R.id.btnOkay);
         btnOkay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && first == true){
+                if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && pass == null){
                     status = true;
-                    first = false;
+//                    first = false;
+                    pass = new Password();
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);
                     pdbo.insertPassword(pass);
@@ -46,7 +47,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password is now set",
                             Toast.LENGTH_SHORT).show();
                 }
-                else if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && first == false){
+                else if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && pass != null){
                     status = true;
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);

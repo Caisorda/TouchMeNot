@@ -29,7 +29,8 @@ public class CheckPasswordActivity extends AppCompatActivity {
                 if(checker.equals(checkPass)){
                     Toast.makeText(getApplicationContext(), "Charging and now deactivating",
                             Toast.LENGTH_SHORT).show();
-                    MainActivity.active = false;
+//                    MainActivity.active = false;
+                    MainActivity.chargerActive = false;
                     finish();
                 }
                 else{

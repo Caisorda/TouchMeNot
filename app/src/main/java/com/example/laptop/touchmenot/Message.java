@@ -9,5 +9,7 @@ public class Message {
     public static final String COLUMN_ID = "_id";
     public static final String INTERVAL_TABLE_NAME = "interval";
     public static final String COLUMN_INTERVAL = "interval";
+    public static final String GRACE_PERIOD_TABLE_NAME = "graceperiod";
+    public static final String COLUMN_GRACE_PERIOD = "graceperiod";
 
 }

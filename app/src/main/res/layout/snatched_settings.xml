@@ -10,45 +10,10 @@
     tools:context="com.example.laptop.touchmenot.SnatchedSettingsActivity"
     android:background="#ffffff">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="false"
-        android:background="#ffffff"
-        android:id="@+id/rlDetectMode"
-        android:layout_marginBottom="30dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Detection Mode"
-            android:id="@+id/tvDetectMode"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Turn on detection of button pattern"
-            android:id="@+id/tvDetectDescription"
-            android:layout_below="@+id/tvDetectMode"
-            android:layout_alignParentStart="true" />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tglbtnDetectMode"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
-
-    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rlDetectMode"
         android:layout_alignParentStart="true"
         android:id="@+id/rlPatternSetting"
         android:layout_marginBottom="30dp">
@@ -151,6 +116,33 @@
             android:text="Set password to stop the alarm"
             android:id="@+id/tvPasswordDescription"
             android:layout_below="@+id/tvPassword"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlPassword"
+        android:layout_alignParentStart="true"
+        android:id="@+id/rlContacts"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Assign Contact"
+            android:id="@+id/tvContacts"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Set Contacts that will receive the message"
+            android:id="@+id/tvContactsDescription"
+            android:layout_below="@+id/tvContacts"
             android:layout_alignParentStart="true" />
     </RelativeLayout>
 

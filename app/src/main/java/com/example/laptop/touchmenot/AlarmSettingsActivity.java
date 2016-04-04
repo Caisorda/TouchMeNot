@@ -3,8 +3,8 @@ package com.example.laptop.touchmenot;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
@@ -13,47 +13,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class SnatchedSettingsActivity extends AppCompatActivity {
+/**
+ * Created by isabeltm on 3/16/2016.
+ */
+public class AlarmSettingsActivity extends AppCompatActivity {
 
-    private RelativeLayout rlContent, rlInterval, rlPatternSetting, rlPassword, rlContacts;
-    private TextView tvInterval;
-    private IntervalDBOpenHelper idbHelper;
-    private ToggleButton tglbtnDetectMode;
+    private RelativeLayout rlGracePeriod, rlChooseTone;
+    private TextView tvGracePeriod;
+    private GracePeriodDBOpenHelper gpdbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.snatched_settings);
+        setContentView(R.layout.alarm_settings);
 
-        idbHelper = new IntervalDBOpenHelper(this);
-        int setTime = idbHelper.getInterval();
+        gpdbHelper = new GracePeriodDBOpenHelper(this);
+        int setTime = gpdbHelper.getGracePeriod();
         if(setTime == 0){
-            idbHelper.newInterval();
+            gpdbHelper.newGracePeriod();
             setTime = 5;
         }
-        tvInterval = (TextView)findViewById(R.id.tvInterval);
-        tvInterval.setText(setTime + " seconds");
+        tvGracePeriod = (TextView)findViewById(R.id.tvGracePeriod);
+        tvGracePeriod.setText(setTime + " seconds");
 
-        rlContent = (RelativeLayout) findViewById(R.id.rlContent);
+        rlGracePeriod = (RelativeLayout) findViewById(R.id.rlGracePeriod);
 
-        rlContent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent();
-                i.setClass(getBaseContext(), ChangeMessageActivity.class);
-                startActivity(i);
-            }
-        });
-
-        rlInterval = (RelativeLayout) findViewById(R.id.rlInterval);
-
-        rlInterval.setOnClickListener(new View.OnClickListener() {
+        rlGracePeriod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //code from http://stackoverflow.com/questions/10903754/input-text-dialog-android by user "Aaron"
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Enter time in seconds");
-                int oldtime = idbHelper.getInterval();
+                int oldtime = gpdbHelper.getGracePeriod();
                 final EditText input = new EditText(v.getContext());
                 input.setText(""+oldtime);
 
@@ -70,8 +61,8 @@ public class SnatchedSettingsActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Input cannot be 0. No changes were saved.",
                                         Toast.LENGTH_SHORT).show();
                             else {
-                                idbHelper.saveInterval(interval);
-                                tvInterval.setText(interval + " seconds");
+                                gpdbHelper.saveGracePeriod(interval);
+                                tvGracePeriod.setText(interval + " seconds");
                                 Toast.makeText(getApplicationContext(), "Setings saved.",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -90,37 +81,6 @@ public class SnatchedSettingsActivity extends AppCompatActivity {
 
                 builder.show();
                 // end of code from http://stackoverflow.com/questions/10903754/input-text-dialog-android
-            }
-        });
-
-        tglbtnDetectMode = (ToggleButton) findViewById(R.id.tglbtnDetectMode);
-        rlPatternSetting = (RelativeLayout) findViewById(R.id.rlPatternSetting);
-        rlPatternSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent();
-                i.setClass(getBaseContext(), ChangePatternActivity.class);
-                startActivity(i);
-            }
-        });
-
-        rlPassword = (RelativeLayout) findViewById(R.id.rlPassword);
-        rlPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                i.setClass(getBaseContext(), ChangePasswordActivity.class);
-                startActivity(i);
-            }
-        });
-
-        rlContacts = (RelativeLayout) findViewById(R.id.rlContacts);
-        rlContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                i.setClass(getBaseContext(), ContactsActivity.class);
-                startActivity(i);
             }
         });
 
