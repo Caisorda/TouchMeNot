@@ -6,3 +6,8 @@
 .DS_Store
 /build
 /captures
+app/src/main/res/mipmap-hdpi/ic_launcher.png
+app/src/main/res/mipmap-mdpi/ic_launcher.png
+*.png
+app/src/main/res/mipmap-xxhdpi/ic_launcher.png
+app/src/main/res/mipmap-mdpi/ic_launcher.png
