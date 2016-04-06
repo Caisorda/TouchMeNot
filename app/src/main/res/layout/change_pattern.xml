@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnPatternCancel"
         android:text="Cancel"
-        android:background="#516161"
+        android:background="@drawable/buttonpower"
         android:layout_alignParentBottom="true" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnPatternAction"
-        android:background="#516161"
+        android:background="@drawable/buttonpower"
         android:layout_marginBottom="14dp"
         android:layout_above="@+id/btnPatternCancel"
         android:layout_alignParentStart="true" />
@@ -52,6 +52,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/pwrbutton"
-        android:background="#516161" />
+        android:background="@drawable/buttonpower" />
 
 </RelativeLayout>
