@@ -70,9 +70,11 @@ public class MainActivity extends AppCompatActivity {
                     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                     chargerReceiver = new ChargerDetectionReceiver();
                     registerReceiver(chargerReceiver, filter);
+
                 } else {
                     Intent i = new Intent();
                     i.setClass(view.getContext(), CheckPasswordActivity.class);
+                    startActivity(i);
                     if (!chargerActive)
                         unregisterReceiver(chargerReceiver);
                 }

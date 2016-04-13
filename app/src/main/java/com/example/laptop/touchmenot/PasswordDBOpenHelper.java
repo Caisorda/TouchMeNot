@@ -12,18 +12,18 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class PasswordDBOpenHelper extends SQLiteOpenHelper {
 
-    public static final String SCHEMA = "password";
+    public static final String SCHEMA = "password021";
     public static int index = 1;
 
     public PasswordDBOpenHelper(Context context){
         super(context, SCHEMA, null, 1);
 
     }
-
+    
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE " + Password.CONTENT_TABLE_NAME + " ("
-                + Password.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Password.COLUMN_ID + " INTEGER, "
                 + Password.COLUMN_PASSWORD + " TEXT, "
                 + Password.COLUMN_CONFIRMPASSWORD + " TEXT) ";
         db.execSQL(sql);
@@ -42,7 +42,7 @@ public class PasswordDBOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(Password.COLUMN_PASSWORD, p.getPassword());
         cv.put(Password.COLUMN_CONFIRMPASSWORD, p.getConfirmpassword());
-        //cv.put(Password.COLUMN_ID, index);
+        cv.put(Password.COLUMN_ID, index);
         long id = db.insert(Password.CONTENT_TABLE_NAME, null, cv);
 
         return id;
@@ -55,14 +55,13 @@ public class PasswordDBOpenHelper extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(Password.COLUMN_PASSWORD, pass.getPassword());
         cv.put(Password.COLUMN_CONFIRMPASSWORD, pass.getConfirmpassword());
-        //cv.put(Password.COLUMN_ID, pass.getID());
-        return db.update(Password.CONTENT_TABLE_NAME, cv, " " + Password.COLUMN_ID + "= ?", new String[]{"" + pass});
+        return db.update(Password.CONTENT_TABLE_NAME, cv, " " + Password.COLUMN_ID + "= ?", new String[]{String.valueOf(pass.getID())});
+        //return db.update(Password.CONTENT_TABLE_NAME, cv, " " + Password.COLUMN_ID + "= ?", new String[]{"" + pass});
     }
 
     public Cursor queryAllPassword(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(Password.CONTENT_TABLE_NAME, null, null, null, null, null, null);
-
 
         return c;
     }

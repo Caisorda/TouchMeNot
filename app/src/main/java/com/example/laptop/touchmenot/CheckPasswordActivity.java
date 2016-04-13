@@ -25,7 +25,11 @@ public class CheckPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String checkPass = etPassword.getText().toString();
+                System.out.println("Check pass: "+ checkPass);
+                int id = pdbhelper.getID(checkPass);
+                System.out.println("Id: "+id);
                 String checker = pdbhelper.getPassword(1).getPassword();
+                System.out.println("Checker password: "+checker);
                 if(checker.equals(checkPass)){
                     Toast.makeText(getApplicationContext(), "Charging and now deactivating",
                             Toast.LENGTH_SHORT).show();
