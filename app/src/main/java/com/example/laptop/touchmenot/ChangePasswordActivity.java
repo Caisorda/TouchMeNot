@@ -1,5 +1,6 @@
 package com.example.laptop.touchmenot;
 
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
 
         pdbo = new PasswordDBOpenHelper(getBaseContext());
+        Cursor c = pdbo.queryAllPassword();
+        System.out.println("Cursor: "+c);
+        while(c.moveToNext()){
+            System.out.println("Cursor shit: "+c.getString(c.getColumnIndex("password")));
+            int i = pdbo.getID(c.getString(c.getColumnIndex("password")));
+            System.out.println("Cursor id: "+i);
+        }
         etPassword = (EditText) findViewById(R.id.etPassword);
         etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
         pass = pdbo.getPassword(1);
@@ -34,14 +42,16 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && pass == null){
                     status = true;
 //                    first = false;
+                    System.out.println("Same shit");
                     pass = new Password();
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);
+                    pass.setID(1);
                     pdbo.insertPassword(pass);
                     //pdbo.savePassword(pass);
                     Log.w("Password", password);
                     Log.w("Confirm", confirmPassword);
-                    System.out.println(password);
+                    System.out.println("Password: "+password);
                     System.out.println(confirmPassword);
                     finish();
                     Toast.makeText(getApplicationContext(), "Password is now set",
@@ -49,12 +59,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
                 else if((!password.equals("") && !confirmPassword.equals("")) && password.equals(confirmPassword) && pass != null){
                     status = true;
+                    System.out.println("Not same");
                     pass.setPassword(password);
                     pass.setConfirmpassword(confirmPassword);
+                    pass.setID(1);
                     pdbo.savePassword(pass);
                     Log.w("Password", password);
                     Log.w("Confirm", confirmPassword);
-                    System.out.println(password);
+                    System.out.println("Password: "+password);
                     System.out.println(confirmPassword);
                     finish();
                     Toast.makeText(getApplicationContext(), "Password is now set",
