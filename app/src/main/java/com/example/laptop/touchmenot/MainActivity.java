@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean chargerActive;
     private ChargerDetectionReceiver chargerReceiver;
     private SharedPreferences preferences;
+    private PowerButtonReceiver powerReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,17 +32,34 @@ public class MainActivity extends AppCompatActivity {
         preferences = this.getSharedPreferences(ChangePatternActivity.PREFERENCES_NAME,MODE_PRIVATE);
         tglbtnDetectMode = (ToggleButton) findViewById(R.id.tglbtnDetectMode);
         tglbtnDetectMode.setChecked(preferences.getBoolean(DETECTING_VALUE,false));
+        if(preferences.getBoolean(DETECTING_VALUE,false)){
+            IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+            powerFilter.addAction(Intent.ACTION_SCREEN_OFF);
+            registerReceiver(powerReceiver,powerFilter);
+        }
+        powerReceiver = new PowerButtonReceiver();
         tglbtnDetectMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    preferences.edit().putBoolean(DETECTING_VALUE,true).apply();
-                    Toast.makeText(getApplicationContext(), "Now detecting for Button Pattern press",
-                            Toast.LENGTH_SHORT).show();
+                    PatternDBOpenHelper pdbHelper = new PatternDBOpenHelper(getBaseContext());
+                    if(!pdbHelper.getPattern().isEmpty()) {
+                        IntentFilter powerFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+                        powerFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                        registerReceiver(powerReceiver,powerFilter);
+                        preferences.edit().putBoolean(DETECTING_VALUE, true).apply();
+                        Toast.makeText(getApplicationContext(), "Now detecting for Button Pattern press",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Please set the Button Pattern first",
+                                Toast.LENGTH_SHORT).show();
+                        tglbtnDetectMode.setChecked(false);
+                    }
                 }else{
                     preferences.edit().putBoolean(DETECTING_VALUE,false).apply();
                     Toast.makeText(getApplicationContext(), "No longer detecting for Button Pattern press",
                             Toast.LENGTH_SHORT).show();
+//                    unregisterReceiver(powerReceiver);
                 }
             }
         });
@@ -73,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Intent i = new Intent();
                     i.setClass(view.getContext(), CheckPasswordActivity.class);
+
                     if (!chargerActive)
                         unregisterReceiver(chargerReceiver);
                 }

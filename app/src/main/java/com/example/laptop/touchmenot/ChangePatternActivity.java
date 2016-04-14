@@ -34,7 +34,7 @@ public class ChangePatternActivity extends AppCompatActivity {
     private TextView tvInstruction;
     private PowerButtonReceiver powerReceiver;
 //    private final VolumeButtonReceiver volumeReceiver = new VolumeButtonReceiver();
-    private IntentFilter powerFilter/*, volumeFilter*/;
+//    private IntentFilter powerFilter/*, volumeFilter*/;
     private PatternDBOpenHelper pdbHelper;
     private VolumeDBOpenHelper vdbHelper;
     private Activity activity;

@@ -45,10 +45,23 @@ public class PatternDBOpenHelper extends SQLiteOpenHelper {
             key.setOrder(c.getInt(c.getColumnIndex(PatternKeys.COLUMN_ID)));
             key.setKey(c.getString(c.getColumnIndex(PatternKeys.COLUMN_KEY)));
         }else{
+            System.out.println(order);
             key = null;
         }
 
         return key;
+    }
+
+    public int lastIndex(){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.query(PatternKeys.TABLE_NAME_PATTERN, new String[]{PatternKeys.COLUMN_ID}, null, null, null, null, PatternKeys.COLUMN_ID + " DESC", "1");
+
+        if(c.moveToFirst()){
+            return c.getInt(c.getColumnIndex(PatternKeys.COLUMN_ID));
+        }else{
+           return -1;
+        }
+
     }
 
     public ArrayList<PatternKeys> getPattern(){
